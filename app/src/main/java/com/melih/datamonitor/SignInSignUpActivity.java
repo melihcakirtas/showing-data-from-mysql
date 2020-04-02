@@ -41,6 +41,7 @@ public class SignInSignUpActivity extends AppCompatActivity {
 
         username = findViewById(R.id.editText);
         password = findViewById(R.id.editText2);
+        String melih = "";
     }
 
     public void signup(View view){
