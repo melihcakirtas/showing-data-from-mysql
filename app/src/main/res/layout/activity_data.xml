@@ -5,25 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:scrollbarThumbVertical="@color/scroll"
+    android:scrollbarSize="4dp"
     tools:context=".DataActivity">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
-        <Button
+        <ImageButton
             android:id="@+id/button2"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="99dp"
             android:onClick="getdata"
             android:text="Show Datas"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:src="@drawable/get"/>
 
-                <TextView
+        <TextView
                 android:id="@+id/textid1"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"

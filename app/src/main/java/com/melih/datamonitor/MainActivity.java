@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
                         connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
                     //we are connected to a network
 
-                    Intent intent = new Intent(MainActivity.this,DataActivity.class);
+                    Intent intent = new Intent(MainActivity.this,SignInSignUpActivity.class);
                     startActivity(intent);
                 }
                 else{

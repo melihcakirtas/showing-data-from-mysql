@@ -9,6 +9,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +35,7 @@ public class DataActivity extends AppCompatActivity {
     TextView txtid1,txtf1,txts1,txtt1,txtfourht1,txtfifth1,txtdate1;
     TextView txtid2,txtf2,txts2,txtt2,txtfourht2,txtfifth2,txtdate2;
     TextView txtid3,txtf3,txts3,txtt3,txtfourht3,txtfifth3,txtdate3;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,8 +63,11 @@ public class DataActivity extends AppCompatActivity {
         txtfourht3 = findViewById(R.id.textfourth3);
         txtfifth3 = findViewById(R.id.textfifth3);
         txtdate3 = findViewById(R.id.textdate3);
+
+
     }
     public void getdata(View view){
+
         String url = "http://www.melihcakirtas.com/index1.php";
         OkHttpClient okHttpClient = new OkHttpClient();
         final Request request = new Request.Builder().url(url).method("GET",null).get().build();
@@ -76,11 +81,11 @@ public class DataActivity extends AppCompatActivity {
             public void onResponse(Call call, Response response) throws IOException {
                 final String data = response.body().string();
                 System.out.println(data);
-
                 DataActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         try{
+
                             JSONArray jsonArray1 = new JSONArray(data);
                             for(int i = 0; i<1; i++){
                                 JSONObject jsonObject1 = (JSONObject) jsonArray1.get(i);
@@ -148,7 +153,9 @@ public class DataActivity extends AppCompatActivity {
                         }
                     }
                 });
+
             }
         });
     }
+
 }
