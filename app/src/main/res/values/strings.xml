@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">DataMonitor</string>
+    <string name="draweropen">draweropen</string>
+    <string name="drawerclose">drawerclose</string>
 </resources>

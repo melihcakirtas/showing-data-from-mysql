@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DownloadManager;
 import android.app.VoiceInteractor;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -41,66 +44,88 @@ public class SignInSignUpActivity extends AppCompatActivity {
 
         username = findViewById(R.id.editText);
         password = findViewById(R.id.editText2);
-        String melih = "";
     }
 
     public void signup(View view){
-        final StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.melihcakirtas.com/users.php", new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                if(response.contains("1")){
-                    Intent intent = new Intent(SignInSignUpActivity.this,DataActivity.class);
-                    startActivity(intent);
-                }else{
-                    Toast.makeText(SignInSignUpActivity.this, "Kullanıcı adı veya şifre hatalı", Toast.LENGTH_SHORT).show();
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            //we are connected to a network
+            final StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.melihcakirtas.com/users.php", new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    if(response.contains("1")){
+                        Intent intent = new Intent(SignInSignUpActivity.this,DataActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }else{
+                        Toast.makeText(SignInSignUpActivity.this, "Kullanıcı adı veya şifre hatalı", Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
 
-            }
-        }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> params =new HashMap<>();
-                params.put("username",username.getText().toString());
-                params.put("password",password.getText().toString());
-                return params;
-            }
-        };
-        Volley.newRequestQueue(this).add(stringRequest);
+                }
+            }){
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String,String> params =new HashMap<>();
+                    params.put("username",username.getText().toString());
+                    params.put("password",password.getText().toString());
+                    return params;
+                }
+            };
+            Volley.newRequestQueue(this).add(stringRequest);
+
+        }
+        else{
+            Intent intent = new Intent(SignInSignUpActivity.this,ConnectionlessActivity.class);
+            startActivity(intent);
+        }
+
     }
     public void signin(View view){
-        StringRequest stringRequestt = new StringRequest(Request.Method.POST, "http://www.melihcakirtas.com/insert.php", new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    String success =  jsonObject.getString("success");
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            //we are connected to a network
+            StringRequest stringRequestt = new StringRequest(Request.Method.POST, "http://www.melihcakirtas.com/insert.php", new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        String success =  jsonObject.getString("success");
 
-                    if(success.equals("1")){
-                        Toast.makeText(SignInSignUpActivity.this, "Başarıyla Oluşturuldu", Toast.LENGTH_SHORT).show();
+                        if(success.equals("1")){
+                            Toast.makeText(SignInSignUpActivity.this, "Başarıyla Oluşturuldu", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
                 }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
 
-            }
-        }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> params = new HashMap<>();
-                params.put("username",username.getText().toString().trim());
-                params.put("password",password.getText().toString().trim());
-                return params;
-            }
-        };
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequestt);
+                }
+            }){
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String,String> params = new HashMap<>();
+                    params.put("username",username.getText().toString().trim());
+                    params.put("password",password.getText().toString().trim());
+                    return params;
+                }
+            };
+            RequestQueue requestQueue = Volley.newRequestQueue(this);
+            requestQueue.add(stringRequestt);
+
+        }
+        else{
+            Intent intent = new Intent(SignInSignUpActivity.this,ConnectionlessActivity.class);
+            startActivity(intent);
+        }
+
     }
 }

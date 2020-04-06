@@ -14,10 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".SignInSignUpActivity"></activity>
         <activity android:name=".ConnectionlessActivity" />
         <activity android:name=".DataActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".SignInSignUpActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

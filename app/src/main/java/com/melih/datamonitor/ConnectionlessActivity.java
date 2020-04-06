@@ -25,7 +25,7 @@ public class ConnectionlessActivity extends AppCompatActivity {
                 connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
             //we are connected to a network
 
-            Intent intent = new Intent(ConnectionlessActivity.this,DataActivity.class);
+            Intent intent = new Intent(ConnectionlessActivity.this,SignInSignUpActivity.class);
             startActivity(intent);
         } else {
             Toast.makeText(this, "Check connection", Toast.LENGTH_SHORT).show();

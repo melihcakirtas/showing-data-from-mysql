@@ -1,17 +1,30 @@
 package com.melih.datamonitor;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.provider.ContactsContract;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.navigation.NavigationView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -24,7 +37,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class DataActivity extends AppCompatActivity {
+public class DataActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     String id,id2,id3;
     String first1,first2,first3;
     String second1,second2,second3;
@@ -35,7 +48,11 @@ public class DataActivity extends AppCompatActivity {
     TextView txtid1,txtf1,txts1,txtt1,txtfourht1,txtfifth1,txtdate1;
     TextView txtid2,txtf2,txts2,txtt2,txtfourht2,txtfifth2,txtdate2;
     TextView txtid3,txtf3,txts3,txtt3,txtfourht3,txtfifth3,txtdate3;
-
+    DrawerLayout drawerLayout;
+    Toolbar toolbar;
+    NavigationView navigationView;
+    ActionBarDrawerToggle toggle;
+    @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +81,42 @@ public class DataActivity extends AppCompatActivity {
         txtfifth3 = findViewById(R.id.textfifth3);
         txtdate3 = findViewById(R.id.textdate3);
 
+        drawerLayout = findViewById(R.id.drawer);
+        toolbar = findViewById(R.id.toolbar);
+        navigationView = findViewById(R.id.navigation_view);
 
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.draweropen,R.string.drawerclose);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.cıkıs:
+                        Intent intent = new Intent(DataActivity.this,SignInSignUpActivity.class);
+                        startActivity(intent);
+                        finish();
+                        break;
+                    case R.id.settings:
+                        Toast.makeText(DataActivity.this, "ayarlar", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.contactus:
+                        AlertDialog.Builder builder = new AlertDialog.Builder(DataActivity.this);
+                        builder.setTitle("Bize Ulaşın");
+                        builder.setMessage("Mail:melihcakirtas@hotmail.com " + "\n" + "Tel:0530 501 1646" );
+                        builder.setIcon(R.drawable.ic_contacts_black_24dp);
+                        builder.setCancelable(true);
+                        AlertDialog alertDialog = builder.create();
+                        alertDialog.show();
+                        break;
+                }
+                return true;
+            }
+        });
     }
     public void getdata(View view){
 
@@ -158,4 +210,8 @@ public class DataActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        return false;
+    }
 }

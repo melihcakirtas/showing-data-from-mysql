@@ -1,55 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
     tools:context=".SignInSignUpActivity">
 
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/capsule"
-        android:ems="10"
-        android:hint="Username"
-        android:inputType="textPersonName"
-        tools:layout_editor_absoluteX="117dp"
-        tools:layout_editor_absoluteY="161dp" />
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/welcome" />
 
-    <EditText
-        android:layout_marginTop="30dp"
-        android:id="@+id/editText2"
-        android:layout_width="wrap_content"
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/capsule"
+            android:ems="10"
+            android:hint="Username"
+            android:inputType="textPersonName"
+            tools:layout_editor_absoluteX="117dp"
+            tools:layout_editor_absoluteY="161dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/capsule"
-        android:ems="10"
-        android:hint="Password"
-        android:inputType="textPassword"
-        tools:layout_editor_absoluteX="117dp"
-        tools:layout_editor_absoluteY="230dp" />
+        app:passwordToggleEnabled="true">
+        <EditText
+            android:layout_marginTop="30dp"
+            android:id="@+id/editText2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/capsule"
+            android:ems="10"
+            android:hint="Password"
+            android:inputType="textPassword"
+            tools:layout_editor_absoluteX="117dp"
+            tools:layout_editor_absoluteY="230dp" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
-        android:layout_marginTop="30dp"
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:onClick="signup"
-        android:text="Giriş Yap"
+        <Button
+            android:layout_marginTop="30dp"
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:background="@drawable/button"
+            android:layout_gravity="center"
+            android:onClick="signup"
+            android:text="Giriş Yap"
+            tools:layout_editor_absoluteX="180dp"
+            tools:layout_editor_absoluteY="348dp" />
+        <Button
+            android:layout_marginTop="30dp"
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="signin"
+            android:background="@drawable/button"
+            android:layout_gravity="center"
+            android:text="Kayıt Ol"
+            tools:layout_editor_absoluteX="180dp"
+            tools:layout_editor_absoluteY="348dp" />
 
-        tools:layout_editor_absoluteX="180dp"
-        tools:layout_editor_absoluteY="348dp" />
-    <Button
-        android:layout_marginTop="30dp"
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:onClick="signin"
-        android:text="Kayıt Ol"
-        tools:layout_editor_absoluteX="180dp"
-        tools:layout_editor_absoluteY="348dp" />
 </LinearLayout>
